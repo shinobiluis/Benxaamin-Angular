@@ -8,6 +8,9 @@ import { InsertarEmpleadoComponent } from './pages/insertar-empleado/insertar-em
 import { NavbarComponent } from './component/navbar/navbar.component';
 import { ListarEmpleadosComponent } from './pages/listar-empleados/listar-empleados.component';
 
+//manejo de formularios
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +21,9 @@ import { ListarEmpleadosComponent } from './pages/listar-empleados/listar-emplea
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

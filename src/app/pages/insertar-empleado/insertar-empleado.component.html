@@ -1,29 +1,84 @@
-<div class="row">
+<form 
+    class="row"
+    [formGroup]="formEmpleados"
+    (ngSubmit)="send()"
+>
     <div class="col-md-6">
         <label for="nombre" class="form-label">Nombre</label>
-        <input type="text" class="form-control" id="nombre">
+        <input 
+            type="text"
+            class="form-control"
+            id="nombre"
+            formControlName="nombre"
+        >
     </div>
     <div class="col-md-6">
         <label for="email" class="form-label">Email</label>
-        <input type="text" class="form-control" id="email">
+        <input t
+            ype="text" 
+            class="form-control" 
+            id="email"
+            formControlName="email"
+        >
     </div>
     <div class="col-md-6">
         <label for="puesto" class="form-label">Puesto</label>
-        <input type="text" class="form-control" id="puesto">
+        <input 
+            type="text" 
+            class="form-control" 
+            id="puesto"
+            formControlName="puesto"
+        >
     </div>
     <div class="col-md-6">
         <label for="fecha_nacimiento" class="form-label">Fecha de nacimiento</label>
-        <input type="text" class="form-control" id="fecha_nacimiento">
+        <!-- <input
+            type="text" 
+            class="form-control" 
+            id="fecha_nacimiento"
+            formControlName="fecha_nacimiento"
+        > -->
+        <div class="input-group">
+            <input class="form-control" placeholder="yyyy-mm-dd"
+            formControlName="fecha_nacimiento" ngbDatepicker #d="ngbDatepicker">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary far fa-calendar-alt" (click)="d.toggle()" type="button"></button>
+            </div>
+          </div>
     </div>
     <div class="col-md-6">
         <label for="domicilio" class="form-label">domicilio</label>
-        <input type="text" class="form-control" id="domicilio">
+        <input 
+            type="text" 
+            class="form-control" 
+            id="domicilio"
+            formControlName="domicilio"
+        >
     </div>
     <div class="col-md-6">
         <label for="skill" class="form-label">Skill</label>
-        <input type="text" class="form-control" id="skill">
+        <div class="row">
+            <input 
+                type="text" 
+                class="form-control col-md-11" 
+                id="skill"
+                formControlName="skill"
+            >
+            <button type="button" class="btn btn-success col-md-1" (click)="addSkill()">
+                <i class="fas fa-plus-square"></i>
+            </button>
+        </div>
     </div>
-    <div class="col-md-12">
-        <button class="btn btn-primary" type="button">Agregar</button>
+    <div class="form-group">
+        
     </div>
+    <div class="col-md-12 mt-3">
+        <button class="btn btn-primary col-md-12" type="submit">Agregar</button>
+    </div>
+</form>
+
+<div>
+    <pre>
+        {{ formEmpleados.value | json }}
+    </pre>
 </div>
