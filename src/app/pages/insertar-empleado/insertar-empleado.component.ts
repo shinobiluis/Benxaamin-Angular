@@ -1,3 +1,4 @@
+import { EmpleadosService } from './../../services/empleados.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap'
@@ -10,9 +11,13 @@ import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap'
 export class InsertarEmpleadoComponent implements OnInit {
 
   public formEmpleados!: FormGroup;
+  public staticAlertClosed = true;
+  public errors:any = '';
+  public success = false;
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private empleados: EmpleadosService
   ) { }
 
   ngOnInit(): void {
@@ -20,22 +25,43 @@ export class InsertarEmpleadoComponent implements OnInit {
       nombre: [ '', [Validators.required]],
       email: [ '', [Validators.required]],
       puesto: [ '', [Validators.required]],
+      fecha_nacimiento1: [ '', [Validators.required]],
       fecha_nacimiento: [ '', [Validators.required]],
       domicilio: [ '', [Validators.required]],
-      skill: [ '', []],
-      skills: [ [], [Validators.required]]
+      skills: [ '', []],
+      skill: [ [], [Validators.required]]
     })
   }
 
   send(): any{
-    console.log( this.formEmpleados.value );
+    this.staticAlertClosed = true;
+    this.success = false;
+    const year = this.formEmpleados.value.fecha_nacimiento1.year;
+    const month = this.formEmpleados.value.fecha_nacimiento1.month;
+    const day = this.formEmpleados.value.fecha_nacimiento1.day;
+
+    this.formEmpleados.value.fecha_nacimiento = `${year}-${month}-${day}`
+    
+    // console.log( this.formEmpleados.value );
+    this.empleados.insertarEmpleado( this.formEmpleados.value )
+      .subscribe( (response: any) =>{
+        console.log( response.data )
+        this.success = true;
+      }, err => {
+        this.errors = err.error.errors;
+        this.staticAlertClosed = false;
+      }, () => {
+        console.log('completed');
+        
+      })
+      
   }
 
   addSkill(): any{
     console.log('agregar')
-    const skill = this.formEmpleados.value.skill;
-    this.formEmpleados.value.skills.push( skill );
-    this.formEmpleados.value.skill = "";
+    const skill = this.formEmpleados.value.skills;
+    this.formEmpleados.value.skill.push( skill );
+    this.formEmpleados.value.skills = "";
   }
 
 }

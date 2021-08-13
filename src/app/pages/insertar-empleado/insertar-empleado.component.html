@@ -1,3 +1,24 @@
+<div class="" *ngIf="!staticAlertClosed" >
+    <ngb-alert 
+    #staticAlert 
+    type="danger" 
+    (closed)="staticAlertClosed = true"
+    *ngFor="let item of errors | keyvalue"
+    >
+        {{item.value}}
+    </ngb-alert>
+</div>
+
+<div class="" *ngIf="success == true" >
+    <ngb-alert 
+    #staticAlert 
+    type="success" 
+    (closed)="staticAlertClosed = true"
+    >
+        Registro exitoso
+    </ngb-alert>
+</div>
+
 <form 
     class="row"
     [formGroup]="formEmpleados"
@@ -32,15 +53,9 @@
     </div>
     <div class="col-md-6">
         <label for="fecha_nacimiento" class="form-label">Fecha de nacimiento</label>
-        <!-- <input
-            type="text" 
-            class="form-control" 
-            id="fecha_nacimiento"
-            formControlName="fecha_nacimiento"
-        > -->
         <div class="input-group">
             <input class="form-control" placeholder="yyyy-mm-dd"
-            formControlName="fecha_nacimiento" ngbDatepicker #d="ngbDatepicker">
+            formControlName="fecha_nacimiento1" ngbDatepicker #d="ngbDatepicker">
             <div class="input-group-append">
               <button class="btn btn-outline-secondary far fa-calendar-alt" (click)="d.toggle()" type="button"></button>
             </div>
@@ -62,7 +77,7 @@
                 type="text" 
                 class="form-control col-md-11" 
                 id="skill"
-                formControlName="skill"
+                formControlName="skills"
             >
             <button type="button" class="btn btn-success col-md-1" (click)="addSkill()">
                 <i class="fas fa-plus-square"></i>
@@ -77,8 +92,8 @@
     </div>
 </form>
 
-<div>
+<!-- <div>
     <pre>
         {{ formEmpleados.value | json }}
     </pre>
-</div>
+</div> -->

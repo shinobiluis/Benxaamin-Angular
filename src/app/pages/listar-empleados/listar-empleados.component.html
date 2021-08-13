@@ -1,1 +1,28 @@
-<p>listar-empleados works!</p>
+  <table class="table table-striped" *ngIf="showTable == true">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Puesto</th>
+      <th scope="col">Email</th>
+      <th scope="col">Fecha de nacimiento</th>
+      <th scope="col">Skills</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of listaEmpleados; index as i">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>
+        {{ item.nombre }}
+      </td>
+      <td>{{ item.puesto }}</td>
+      <td>{{ item.email }}</td>
+      <td>{{ item.fecha_nacimiento }}</td>
+      <td>
+          <div *ngFor="let skill of item.skills; index as i">
+            {{ skill.skill }}
+          </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
